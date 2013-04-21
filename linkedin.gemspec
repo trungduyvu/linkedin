@@ -5,6 +5,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'hashie', '~> 1.2'
   gem.add_dependency 'multi_json', '~> 1.0'
   gem.add_dependency 'oauth', '~> 0.4'
+  gem.add_dependency 'oauth2', '~> 0.9.1'
   gem.add_development_dependency 'json', '~> 1.6'
   gem.add_development_dependency 'rake', '~> 0.9'
   gem.add_development_dependency 'rdoc', '~> 3.8'
