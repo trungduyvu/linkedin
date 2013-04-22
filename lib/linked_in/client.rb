@@ -4,17 +4,21 @@ module LinkedIn
 
   class Client
     include Helpers::Request
-    include Helpers::Authorization
     include Api::QueryMethods
     include Api::UpdateMethods
     include Search
 
     attr_reader :consumer_token, :consumer_secret, :consumer_options
 
-    def initialize(ctoken=LinkedIn.token, csecret=LinkedIn.secret, options={})
+    def initialize(ctoken=LinkedIn.token, csecret=LinkedIn.secret, oauth_version=1, options={})
       @consumer_token   = ctoken
       @consumer_secret  = csecret
       @consumer_options = options
+      if oauth_version == 1
+          self.class.send(:include, Helpers::Authorization)
+      elsif oauth_version == 2
+        self.class.send(:include, Helpers::Authorization2)
+      end
     end
 
     #

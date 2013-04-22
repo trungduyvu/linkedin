@@ -1,6 +1,5 @@
 module LinkedIn
   module Helpers
-
     module Authorization
 
       DEFAULT_OAUTH_OPTIONS = {

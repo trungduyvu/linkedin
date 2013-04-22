@@ -4,7 +4,7 @@ module LinkedIn
     module Request
 
       DEFAULT_HEADERS = {
-        'x-li-format' => 'json'
+          headers: {'x-li-format' => 'json'}
       }
 
       API_PATH = '/v1'
@@ -40,7 +40,7 @@ module LinkedIn
         def raise_errors(response)
           # Even if the json answer contains the HTTP status code, LinkedIn also sets this code
           # in the HTTP answer (thankfully).
-          case response.code.to_i
+          case response.response.status.to_i
           when 401
             data = Mash.from_json(response.body)
             raise LinkedIn::Errors::UnauthorizedError.new(data), "(#{data.status}): #{data.message}"
