@@ -32,15 +32,18 @@ module LinkedIn
       def authorize_from_code(code, redirect_uri)
         @access_token = consumer.auth_code.get_token(code, {:redirect_uri => redirect_uri},
                                                      DEFAULT_ACCESS_TOKEN_OPTIONS.clone)
-        # because
+        raise LinkedIn::Errors::AccessDeniedError.new("Access token wasn't received") if @access_token.token.empty?
+        @access_token
       end
 
       def access_token
         @access_token
       end
 
-      def authorize_from_access(atoken)
-        @access_token ||= ::OAuth2::AccessToken.new(consumer, atoken, DEFAULT_ACCESS_TOKEN_OPTIONS.clone)
+      def authorize_from_access(atoken, options={})
+        @access_token ||= ::OAuth2::AccessToken.new(consumer,
+                                                    atoken,
+                                                    DEFAULT_ACCESS_TOKEN_OPTIONS.merge(options))
       end
 
       private
